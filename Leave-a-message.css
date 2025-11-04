@@ -1,0 +1,224 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  background-color: #f5f8fa;
+}
+
+/* BARRAS LATERAIS E GRID SUPERIOR */
+.linha-grid {
+  pointer-events: none;
+  height: 100%;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 255, 170, 0);
+  display: grid;
+  grid-template-columns: 1fr;
+  border-right: 1px solid rgb(70, 70, 70);
+  border-left: 1px solid rgb(70, 70, 70);
+  width: min(75vw, 800px);
+  box-sizing: border-box;
+}
+
+/* HEADER CENTRALIZADO COM AS BARRAS */
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  width: min(75vw, 700px);
+  box-sizing: border-box;
+}
+
+/* DIV da parte de baixo da header */
+.digitar-botao {
+  display: flex;
+  justify-content: right;
+  margin-top: 15px;
+  width: min(75vw, 700px);
+}
+
+/* FUNDO e GRID (onde ficam as mensagens) */
+.mensagens-feitas {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid rgb(70, 70, 70);
+  border-left: 1px solid rgb(70, 70, 70);
+  border-right: 1px solid rgb(70, 70, 70);
+  width: min(75vw, 800px);
+  font-family: montserrat;
+  font-size: 24px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* MENSAGENS POSTADAS */
+.mensagem-individual {
+  border-bottom: 1px solid rgb(70, 70, 70);
+}
+
+.mensagem-individual p {
+  width: min(68vw, 780px);
+  font-size: 20px;
+  margin: 0;
+  padding: 16px 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* LIKE E NOME */
+.alinhamento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 10px 10px;
+}
+
+.info-esquerda {
+  display: flex;
+  align-items: center;
+}
+
+.botao-like {
+  width: 30px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.numero-likes {
+  font-size: 18px;
+  color: #333;
+}
+
+.nome {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* IMAGENS */
+img {
+  width: 50px;
+  vertical-align: middle;
+}
+
+.img {
+  background-color: #ffffff;
+  margin-right: 25px;
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 150px;
+  object-fit: contain;
+}
+
+/* INPUTS */
+.nickname {
+  font-family: montserrat;
+  border: 1px solid gray;
+  border-radius: 50px;
+  background-color: #f5f8fa;
+  font-size: 24px;
+  width: 200px;
+  padding: 6px 20px;
+  box-sizing: border-box;
+}
+
+.nickname::placeholder {
+  text-align: center;
+}
+
+
+.caixa-de-mensagens {
+  font-family: montserrat;
+  background-color: #f5f8fa;
+  font-size: 24px;
+  border: none;
+  width: min(75vw, 680px);
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.caixa-de-mensagens:focus {
+  outline: none;
+}
+
+/* BOTÃO PRINCIPAL */
+.botao {
+  font-family: montserrat;
+  font-size: 20px;
+  border: none;
+  color: white;
+  background-color: rgb(106, 178, 245);
+  padding: 10px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.botao:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .header {
+    scale: 0.8;
+  }
+
+  .nickname {
+    font-size: 16px;
+    width: 130px;
+    padding: 4px 12px;
+  }
+
+  .caixa-de-mensagens {
+    font-size: 16px;
+    height: 38px;
+    border-radius: 20px;
+  }
+
+  .botao {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .mensagem-individual p {
+    font-size: 15px;
+    margin: 0;
+    padding: 16px 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  .mensagens-feitas {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: 1px solid rgb(70, 70, 70);
+    border-left: 1px solid rgb(70, 70, 70);
+    border-right: 1px solid rgb(70, 70, 70);
+    width: min(75vw, 800px);
+    font-family: montserrat;
+    font-size: 24px;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .texto {
+    font-size: 16px;
+  }
+
+  .nome {
+    font-size: 16px;
+  }
+
+  .botao-like {
+    width: 22px;
+  }
+
+}
