@@ -33,7 +33,6 @@ const caixaDeMensagensBox = document.getElementById("caixa-de-mensagens-box");
 const caixaDeMensagensButton = document.getElementById("caixa-de-mensagens-button");
 const inputNome = document.querySelector(".nickname");
 
-// Função para criar uma mensagem com a estrutura correta
 function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
   const divMensagem = document.createElement("div");
   divMensagem.classList.add("mensagem-individual");
