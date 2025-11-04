@@ -11,9 +11,9 @@ import {
   getFirestore, 
   collection, 
   addDoc, 
+  getDocs, 
   orderBy, 
-  query,
-  onSnapshot
+  query 
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -79,27 +79,37 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
     if (!curtiu) {
       curtirComentario(docId, spanLikes);
       imgLike.src = "icons/liked.png";
-      curtiu = true;
+      curtiu = true; // impede novos cliques nesta mensagem
     }
   });
 }
 //#endregion
 
-//#region Carregar Mensagens em tempo real
-const q = query(collection(db, "Pessoas"), orderBy("timestamp", "desc"));
+//#region Carregar Mensagem
+// Carregar mensagens do Firestore (ordenadas por tempo)
+async function carregarMensagens() {
+  try {
+    mensagensFeitas.innerHTML = ""; // limpa mensagens atuais
+    
+    // Cria uma query ordenando pelo campo 'timestamp'
+    const q = query(collection(db, "Pessoas"), orderBy("timestamp", "desc"));
+    const snapshot = await getDocs(q);
+    
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      if (data.mensagem) {
+        criarMensagem(data.mensagem, data.nome, data.likes || 0, docSnap.id);
+      }
+    });
 
-onSnapshot(q, (snapshot) => {
-  mensagensFeitas.innerHTML = ""; // limpa mensagens atuais
-  snapshot.forEach(docSnap => {
-    const data = docSnap.data();
-    if (data.mensagem) {
-      criarMensagem(data.mensagem, data.nome, data.likes || 0, docSnap.id);
-    }
-  });
-});
+  } catch (err) {
+    console.error("Erro ao carregar mensagens:", err);
+  }
+}
 //#endregion
 
 //#region Enviar mensagem
+// Enviar mensagem
 async function enviarMensagem() {
   const texto = caixaDeMensagensBox.value.trim();
   const nome = inputNome.value.trim() || "Anônimo";
@@ -118,13 +128,16 @@ async function enviarMensagem() {
     caixaDeMensagensBox.value = "";
     inputNome.value = "";
 
+    // Atualiza mensagens imediatamente
+    carregarMensagens();
+
   } catch (err) {
     console.error("Erro ao enviar mensagem:", err);
   }
 }
 //#endregion
 
-//#region Curtir Comentário
+//#region Curir Comentario
 async function curtirComentario(docId, spanLikes) {
   const docRef = doc(db, "Pessoas", docId);
   try {
@@ -132,27 +145,40 @@ async function curtirComentario(docId, spanLikes) {
       likes: increment(1)
     });
     spanLikes.textContent = Number(spanLikes.textContent) + 1;
+
   } catch (err) {
     console.error("Erro ao curtir comentário", err);
   }
 }
 //#endregion
 
-//#region Tema 
-const interruptoresCol = collection(db,"Luz");
+async function ligarLuz() {
+  const i = collection(db,"interruptor");
+  const snapshot = await getDocs(i);
 
-onSnapshot(interruptoresCol, (snapshot) => {
-  if (!snapshot.empty) {
-    const ligado = snapshot.docs[0].data().check; 
-    document.documentElement.setAttribute('data-theme', ligado ? 'light' : 'dark');
+    const checkSwitch = snapshot.docs[0].data();
+    const ligado = checkSwitch.ligado; // campo booleano  
+
+  if(ligado){
+    document.documentElement.setAttribute('data-theme', 'light');
+  }else{
+    document.documentElement.setAttribute('data-theme', 'dark'); 
   }
-});
-//#endregion
+};
 
-//#region Eventos
+
+
+
+
+
+
+
+// Eventos
 caixaDeMensagensBox.addEventListener("keydown", (event) => {
   if (event.key === "Enter") enviarMensagem();
 });
 
 caixaDeMensagensButton.addEventListener("click", enviarMensagem);
-//#endregion
+
+// Carrega mensagens ao abrir a página
+carregarMensagens();

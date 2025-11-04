@@ -1,11 +1,40 @@
+:root[data-theme="light"]{
+  --bg-color:#f5f8fa; 
+  --box-color:#fff;
+  --font-color:black;
+  --num-like-color:#333;
+  --border-color:#464646;
+  --header-color:#464646;
+  --enviar-color:#6ab2f5;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #212121;
+  --font-color: #eee;
+  --num-like-color: #bebebe;
+  --box-color:#171717;
+  --border-color:#464646;
+  --header-color:white;
+  --enviar-color:#4d4d4d;
+}
+
+
 body {
+  color: var(--font-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   margin: 0;
-  background-color: #f5f8fa;
+  background-color: var(--bg-color);
 }
+
+.interruptor{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
 
 /* BARRAS LATERAIS E GRID SUPERIOR */
 .linha-grid {
@@ -17,8 +46,8 @@ body {
   background-color: rgba(0, 255, 170, 0);
   display: grid;
   grid-template-columns: 1fr;
-  border-right: 1px solid rgb(70, 70, 70);
-  border-left: 1px solid rgb(70, 70, 70);
+  border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   width: min(75vw, 800px);
   box-sizing: border-box;
 }
@@ -47,19 +76,19 @@ body {
 .mensagens-feitas {
   display: grid;
   grid-template-columns: 1fr;
-  border-top: 1px solid rgb(70, 70, 70);
-  border-left: 1px solid rgb(70, 70, 70);
-  border-right: 1px solid rgb(70, 70, 70);
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
   width: min(75vw, 800px);
   font-family: montserrat;
   font-size: 24px;
-  background-color: #fff;
+  background-color: var(--box-color);
   box-sizing: border-box;
 }
 
 /* MENSAGENS POSTADAS */
 .mensagem-individual {
-  border-bottom: 1px solid rgb(70, 70, 70);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .mensagem-individual p {
@@ -93,12 +122,12 @@ body {
 
 .numero-likes {
   font-size: 18px;
-  color: #333;
+  color: var(--num-like-color);;
 }
 
 .nome {
-  font-weight: bold;
-  font-size: 18px;
+  font-weight:bold;
+  font-size: 16px;
 }
 
 /* IMAGENS */
@@ -120,13 +149,14 @@ img {
 /* INPUTS */
 .nickname {
   font-family: montserrat;
-  border: 1px solid gray;
+  border: 1px solid var(--header-color);
   border-radius: 50px;
-  background-color: #f5f8fa;
+  background-color: var(--bg-color);
   font-size: 24px;
   width: 200px;
   padding: 6px 20px;
   box-sizing: border-box;
+  color: var(--font-color);
 }
 
 .nickname::placeholder {
@@ -136,13 +166,14 @@ img {
 
 .caixa-de-mensagens {
   font-family: montserrat;
-  background-color: #f5f8fa;
+  background-color: var(--bg-color);
   font-size: 24px;
   border: none;
   width: min(75vw, 680px);
   height: 50px;
   margin-left: 10px;
   margin-right: 10px;
+  color: var(--font-color);
 }
 
 .caixa-de-mensagens:focus {
@@ -155,7 +186,7 @@ img {
   font-size: 20px;
   border: none;
   color: white;
-  background-color: #6ab2f5;
+  background-color: var(--enviar-color);
   padding: 10px 24px;
   border-radius: 50px;
   cursor: pointer;
@@ -199,13 +230,13 @@ img {
   .mensagens-feitas {
     display: grid;
     grid-template-columns: 1fr;
-    border-top: 1px solid rgb(70, 70, 70);
-    border-left: 1px solid rgb(70, 70, 70);
-    border-right: 1px solid rgb(70, 70, 70);
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     width: min(75vw, 800px);
     font-family: montserrat;
     font-size: 24px;
-    background-color: #fff;
+    background-color: var(--box-color);
     box-sizing: border-box;
   }
 
@@ -219,6 +250,12 @@ img {
 
   .botao-like {
     width: 22px;
+  }
+
+  .interruptor{
+    scale:0.8;
+    right: 1px;
+    top: 1px;
   }
 
 }
