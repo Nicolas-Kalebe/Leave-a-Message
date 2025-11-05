@@ -22,7 +22,6 @@
   }
 }
 
-
 body {
   color: var(--font-color);
   display: flex;
@@ -37,8 +36,14 @@ body {
   position: absolute;
   top: 30px;
   right: 30px;
+  cursor: pointer;
 }
 
+.msg-luz {
+  color: #212121;
+  position: absolute;
+  right: 1px;
+}
 
 /* BARRAS LATERAIS E GRID SUPERIOR */
 .linha-grid {
@@ -52,7 +57,7 @@ body {
   grid-template-columns: 1fr;
   border-right: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
-  width: min(75vw, 800px);
+  width: min(60vw, 800px);
   box-sizing: border-box;
 }
 
@@ -73,7 +78,7 @@ body {
   display: flex;
   justify-content: right;
   margin-top: 15px;
-  width: min(75vw, 700px);
+  width: min(78vw, 700px);
 }
 
 /* FUNDO e GRID (onde ficam as mensagens) */
@@ -83,7 +88,7 @@ body {
   border-top: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
-  width: min(75vw, 800px);
+  width: min(60vw, 800px);
   font-family: montserrat;
   font-size: 24px;
   background-color: var(--box-color);
@@ -96,7 +101,7 @@ body {
 }
 
 .mensagem-individual p {
-  width: min(68vw, 780px);
+  width: min(30vw, 780px);
   font-size: 20px;
   margin: 0;
   padding: 16px 10px;
@@ -203,7 +208,9 @@ img {
 
 @media (max-width: 600px) {
   .header {
-    scale: 0.8;
+    scale: 0.68;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
 
   .nickname {
@@ -238,7 +245,7 @@ img {
     border-top: 1px solid var(--border-color);
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
-    width: min(75vw, 800px);
+    width: min(60vw, 800px);
     font-family: montserrat;
     font-size: 24px;
     background-color: var(--box-color);
