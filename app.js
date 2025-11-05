@@ -1,18 +1,19 @@
 //#region Firebase e Firestore
 
-import { 
-  initializeApp 
+import {
+  initializeApp
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
 
-import {  
-  doc, 
-  updateDoc, 
-  increment, 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  orderBy, 
+import {
+  doc,
+  updateDoc,
+  increment,
+  getFirestore,
+  collection,
+  addDoc,
+  orderBy,
   query,
+  getDoc,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 
@@ -72,7 +73,7 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
   divMensagem.appendChild(divAlinhamento);
 
   mensagensFeitas.appendChild(divMensagem);
-  
+
   let curtiu = false;
 
   imgLike.addEventListener("click", () => {
@@ -139,15 +140,36 @@ async function curtirComentario(docId, spanLikes) {
 //#endregion
 
 //#region Tema 
-const interruptoresCol = collection(db,"Luz");
-
+const interruptoresCol = collection(db, "Luz");
+const tema = document.getElementById("tema");
 onSnapshot(interruptoresCol, (snapshot) => {
   if (!snapshot.empty) {
-    const ligado = snapshot.docs[0].data().check; 
+    const ligado = snapshot.docs[0].data().check;
     document.documentElement.setAttribute('data-theme', ligado ? 'light' : 'dark');
+    if (ligado) {
+      tema.src = "icons/light.png";
+    } else {
+      tema.src = "icons/dark.png";
+    }
   }
 });
 //#endregion
+
+async function mudarTema() {
+  try {
+    const docRef = doc(db, "Luz", "interruptor");
+
+    const docSnap = await getDoc(docRef);
+    const currentCheck = docSnap.data().check;
+
+    await updateDoc(docRef, {
+      check: !currentCheck
+    });
+
+  } catch (err) {
+    console.error("Erro ao trocar de tema:", err);
+  }
+}
 
 //#region Eventos
 caixaDeMensagensBox.addEventListener("keydown", (event) => {
@@ -155,4 +177,8 @@ caixaDeMensagensBox.addEventListener("keydown", (event) => {
 });
 
 caixaDeMensagensButton.addEventListener("click", enviarMensagem);
+
+tema.addEventListener("click", mudarTema);
 //#endregion
+
+
