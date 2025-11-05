@@ -38,7 +38,7 @@ const caixaDeMensagensBox = document.getElementById("caixa-de-mensagens-box");
 const caixaDeMensagensButton = document.getElementById("caixa-de-mensagens-button");
 const inputNome = document.querySelector(".nickname");
 
-function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
+function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId, timeStamp) {
   const divMensagem = document.createElement("div");
   divMensagem.classList.add("mensagem-individual");
 
@@ -52,7 +52,9 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
   divEsquerda.classList.add("info-esquerda");
 
   const imgLike = document.createElement("img");
-  imgLike.src = "icons/like.png";
+  const jaCurtiu = localStorage.getItem(`curtiu_${docId}`);
+
+  imgLike.src = jaCurtiu ? "icons/liked.png" : "icons/like.png";
   imgLike.classList.add("botao-like");
 
   const spanLikes = document.createElement("span");
@@ -64,7 +66,7 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
 
   const spanNome = document.createElement("span");
   spanNome.classList.add("nome");
-  spanNome.textContent = nomeUsuario;
+  spanNome.textContent = `${formatarTimestamp(timeStamp)} - ${nomeUsuario}`;
 
   divAlinhamento.appendChild(divEsquerda);
   divAlinhamento.appendChild(spanNome);
@@ -74,17 +76,40 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId) {
 
   mensagensFeitas.appendChild(divMensagem);
 
-  let curtiu = false;
-
+  //Click no Like
   imgLike.addEventListener("click", () => {
-    if (!curtiu) {
-      curtirComentario(docId, spanLikes);
+    const curtiuAgora = localStorage.getItem(`curtiu_${docId}`);
+
+    if (curtiuAgora) {
+      imgLike.src = "icons/like.png";
+      localStorage.removeItem(`curtiu_${docId}`);
+      curtirComentario(docId, -1);
+    } else {
       imgLike.src = "icons/liked.png";
-      curtiu = true;
+      localStorage.setItem(`curtiu_${docId}`, "true");
+      curtirComentario(docId, +1); 
     }
   });
 }
 //#endregion
+
+  //converte o timestamp
+  function formatarTimestamp(timestamp) {
+  const data = new Date(timestamp);
+
+  const formato = new Intl.DateTimeFormat('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    timeZone: 'America/Sao_Paulo'
+  });
+  return formato.format(data);
+}
+
+
 
 //#region Carregar Mensagens em tempo real
 const q = query(collection(db, "Pessoas"), orderBy("timestamp", "desc"));
@@ -94,7 +119,7 @@ onSnapshot(q, (snapshot) => {
   snapshot.forEach(docSnap => {
     const data = docSnap.data();
     if (data.mensagem) {
-      criarMensagem(data.mensagem, data.nome, data.likes || 0, docSnap.id);
+      criarMensagem(data.mensagem, data.nome, data.likes || 0, docSnap.id, data.timestamp);
     }
   });
 });
@@ -126,31 +151,14 @@ async function enviarMensagem() {
 //#endregion
 
 //#region Curtir Comentário
-async function curtirComentario(docId, spanLikes) {
+async function curtirComentario(docId, valor) {
   const docRef = doc(db, "Pessoas", docId);
-  const curtiu = localStorage.getItem(`curtiu_${docId}`);
-
-  if (curtiu) {
-    try{
-      await updateDoc(docRef,{
-        likes: increment(-1)
-      });
-      spanLikes.textContent=Number(spanLikes.textContent)-1;
-      localStorage.removeItem()
-    }catch(err){
-      console.error("Erro ao descutir comentario");
-    }
-
-  } else {
-    try {
-      await updateDoc(docRef, {
-        likes: increment(1)
-      });
-      spanLikes.textContent = Number(spanLikes.textContent) + 1;
-      localStorage.setItem(`curtiu_${docId}`, "true");
-    } catch (err) {
-      console.error("Erro ao curtir comentário", err);
-    }
+  try {
+    await updateDoc(docRef, {
+      likes: increment(valor)
+    });
+  } catch (err) {
+    console.error("Erro ao atualizar curtida:", err);
   }
 }
 //#endregion

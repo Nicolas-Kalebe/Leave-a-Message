@@ -18,7 +18,8 @@
   --enviar-color: #4d4d4d;
 
   .botao-like {
-    filter: invert(1);
+    
+    filter: invert(1) hue-rotate(180deg) saturate(500);
   }
 }
 
@@ -231,9 +232,10 @@ img {
   }
 
   .mensagem-individual p {
-    font-size: 15px;
+    font-size: 12px;
     margin: 0;
     padding: 16px 10px;
+    width: min(54.5vw, 800px);
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
@@ -257,7 +259,11 @@ img {
   }
 
   .nome {
-    font-size: 16px;
+    text-align: right;
+    font-size: 8px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
 
   .botao-like {
