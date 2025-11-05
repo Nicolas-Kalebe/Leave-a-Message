@@ -6,6 +6,7 @@
   --border-color: #464646;
   --header-color: #464646;
   --enviar-color: #6ab2f5;
+
 }
 
 :root[data-theme="dark"] {
@@ -18,7 +19,7 @@
   --enviar-color: #4d4d4d;
 
   .botao-like {
-    
+
     filter: invert(1) hue-rotate(180deg) saturate(500);
   }
 }
@@ -102,13 +103,20 @@ body {
 }
 
 .mensagem-individual p {
-  width: min(30vw, 780px);
+  width: min(65vw, 780px);
   font-size: 20px;
   margin: 0;
   padding: 16px 10px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+}
+
+.mensagem-individual a {
+  color: #4da3ff;
+  text-decoration: underline;
+  word-break: break-all;
+  /* evita links longos estourando layout */
 }
 
 /* LIKE E NOME */
@@ -176,6 +184,7 @@ img {
 
 
 .caixa-de-mensagens {
+  resize: none;
   font-family: montserrat;
   background-color: var(--bg-color);
   font-size: 24px;
@@ -223,7 +232,6 @@ img {
   .caixa-de-mensagens {
     font-size: 16px;
     height: 38px;
-    border-radius: 20px;
   }
 
   .botao {

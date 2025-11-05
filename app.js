@@ -43,7 +43,13 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId, timeS
   divMensagem.classList.add("mensagem-individual");
 
   const pMensagem = document.createElement("p");
-  pMensagem.textContent = mensagemTexto;
+
+  // 🔗 Detecta links e transforma em <a> clicável
+  const textoComLinks = mensagemTexto.replace(
+    /(https?:\/\/[^\s]+)/g,
+    '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+  );
+  pMensagem.innerHTML = textoComLinks;
 
   const divAlinhamento = document.createElement("div");
   divAlinhamento.classList.add("alinhamento");
@@ -76,7 +82,7 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId, timeS
 
   mensagensFeitas.appendChild(divMensagem);
 
-  //Click no Like
+  // Click no Like
   imgLike.addEventListener("click", () => {
     const curtiuAgora = localStorage.getItem(`curtiu_${docId}`);
 
@@ -87,10 +93,11 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId, timeS
     } else {
       imgLike.src = "icons/liked.png";
       localStorage.setItem(`curtiu_${docId}`, "true");
-      curtirComentario(docId, +1); 
+      curtirComentario(docId, +1);
     }
   });
 }
+
 //#endregion
 
   //converte o timestamp
@@ -196,10 +203,10 @@ async function mudarTema() {
 //#endregion
 
 //#region Eventos
-caixaDeMensagensBox.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") enviarMensagem();
+/*caixaDeMensagensBox.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) enviarMensagem();
 });
-
+*/
 caixaDeMensagensButton.addEventListener("click", enviarMensagem);
 
 tema.addEventListener("click", mudarTema);
