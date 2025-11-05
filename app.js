@@ -128,13 +128,29 @@ async function enviarMensagem() {
 //#region Curtir Comentário
 async function curtirComentario(docId, spanLikes) {
   const docRef = doc(db, "Pessoas", docId);
-  try {
-    await updateDoc(docRef, {
-      likes: increment(1)
-    });
-    spanLikes.textContent = Number(spanLikes.textContent) + 1;
-  } catch (err) {
-    console.error("Erro ao curtir comentário", err);
+  const curtiu = localStorage.getItem(`curtiu_${docId}`);
+
+  if (curtiu) {
+    try{
+      await updateDoc(docRef,{
+        likes: increment(-1)
+      });
+      spanLikes.textContent=Number(spanLikes.textContent)-1;
+      localStorage.removeItem()
+    }catch(err){
+      console.error("Erro ao descutir comentario");
+    }
+
+  } else {
+    try {
+      await updateDoc(docRef, {
+        likes: increment(1)
+      });
+      spanLikes.textContent = Number(spanLikes.textContent) + 1;
+      localStorage.setItem(`curtiu_${docId}`, "true");
+    } catch (err) {
+      console.error("Erro ao curtir comentário", err);
+    }
   }
 }
 //#endregion
@@ -153,7 +169,6 @@ onSnapshot(interruptoresCol, (snapshot) => {
     }
   }
 });
-//#endregion
 
 async function mudarTema() {
   try {
@@ -170,6 +185,7 @@ async function mudarTema() {
     console.error("Erro ao trocar de tema:", err);
   }
 }
+//#endregion
 
 //#region Eventos
 caixaDeMensagensBox.addEventListener("keydown", (event) => {
