@@ -119,22 +119,24 @@ function criarMensagem(mensagemTexto, nomeUsuario, numeroLikes = 0, docId, timeS
 const imagemInput = document.getElementById("seletor-imagem");
 
 
-const IMGBB_API_KEY = "71f11a7f88bb3de97d492ed7b9c1e363";
-
 // Função de upload
 async function enviarImagemParaImgBB(file) {
-  const formData = new FormData();
-  formData.append("image", file);
-  formData.append("key", IMGBB_API_KEY);
-
-  const response = await fetch("https://api.imgbb.com/1/upload", {
-    method: "POST",
-    body: formData
+  const base64 = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
   });
 
-  const data = await response.json();
+  const res = await fetch("/.netlify/functions/upload-imgbb", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ imageBase64: base64, fileName: file.name }),
+  });
+
+  const data = await res.json();
   if (data.success) {
-    return data.data.url; // URL pública da imagem
+    return data.data.url;
   } else {
     throw new Error("Erro ao enviar imagem: " + JSON.stringify(data));
   }
