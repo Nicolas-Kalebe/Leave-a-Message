@@ -7,6 +7,9 @@
   --header-color: #464646;
   --enviar-color: #6ab2f5;
 
+  .seletor-icone{
+    filter: invert(1) brightness(500%);
+  }
 }
 
 :root[data-theme="dark"] {
@@ -19,7 +22,6 @@
   --enviar-color: #4d4d4d;
 
   .botao-like {
-
     filter: invert(1) hue-rotate(180deg) saturate(500);
   }
 }
@@ -125,7 +127,7 @@ body {
   border: 1px;
   border-radius: 10px;
   border-style: solid;
-  border-color: #bebebe;
+  border-color: var(--num-like-color);
   
 }
 
@@ -146,15 +148,19 @@ body {
   margin: auto;
   width: min(64vw, 790px);
   margin-bottom: 15px;
+
 }
 
 .imagem-do-post {
   margin: 0 auto;
-  width: 80%;
-  height: auto;
+  width: 80%;         
+  max-height: 300px;  
+  height: auto;    
   display: block;
-  border-radius: 10px;
+  object-fit: contain;
+  
 }
+
 
 
 
@@ -287,6 +293,11 @@ body {
     width: min(54.5vw, 790px);
     margin-bottom: 15px;
   }
+
+  .imagem-do-post {
+    max-height: 150px;
+  }
+
 
   .im .mensagens-feitas {
     display: grid;
