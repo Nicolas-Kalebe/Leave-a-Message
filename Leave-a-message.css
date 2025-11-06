@@ -70,7 +70,7 @@ body {
   justify-content: left;
   align-items: flex-start;
   margin-top: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: min(75vw, 700px);
   box-sizing: border-box;
 }
@@ -119,6 +119,45 @@ body {
   /* evita links longos estourando layout */
 }
 
+.div-seletor-img{
+  margin-left: 10px;
+  padding: 7px;
+  border: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #bebebe;
+  
+}
+
+.seletor-img {
+  display: none;
+}
+
+.seletor-icone {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.seletor-icone:hover img {
+  transform: scale(1.1);
+}
+
+.div-da-imagem {
+  margin: auto;
+  width: min(64vw, 790px);
+  margin-bottom: 15px;
+}
+
+.imagem-do-post {
+  margin: 0 auto;
+  width: 80%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+
+
 /* LIKE E NOME */
 .alinhamento {
   display: flex;
@@ -149,22 +188,15 @@ body {
   font-size: 16px;
 }
 
-/* IMAGENS */
-img {
-  width: 50px;
+/* IMAGENS*/ 
+ .tema img{
   vertical-align: middle;
 }
 
-.img {
-  background-color: #ffffff;
-  margin-right: 25px;
-  width: 80px;
-  height: 80px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 150px;
-  object-fit: contain;
+.tema {
+  height: 50px;
 }
-
+/*
 /* INPUTS */
 .nickname {
   font-family: montserrat;
@@ -216,7 +248,8 @@ img {
   opacity: 0.8;
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 1300px) {
   .header {
     scale: 0.68;
     margin-top: 10px;
@@ -249,7 +282,13 @@ img {
     white-space: pre-wrap;
   }
 
-  .mensagens-feitas {
+  .div-da-imagem {
+    margin: auto;
+    width: min(54.5vw, 790px);
+    margin-bottom: 15px;
+  }
+
+  .im .mensagens-feitas {
     display: grid;
     grid-template-columns: 1fr;
     border-top: 1px solid var(--border-color);
@@ -277,11 +316,12 @@ img {
   .botao-like {
     width: 16px;
   }
+
   .numero-likes {
-  font-size: 10px;
-  color: var(--num-like-color);
-  ;
-}
+    font-size: 10px;
+    color: var(--num-like-color);
+    ;
+  }
 
   .interruptor {
     scale: 0.8;
