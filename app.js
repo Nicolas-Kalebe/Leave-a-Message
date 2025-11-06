@@ -182,7 +182,13 @@ async function enviarMensagem() {
   enviandoMensagem = true;
 
   const texto = caixaDeMensagensBox.value.trim();
-  const nome = inputNome.value.trim() || "Anônimo";
+  const nome = inputNome.value.trim();
+  if (!nome) {
+    alert("Por favor, digite seu nome antes de enviar.");
+    enviandoMensagem = false;
+    caixaDeMensagensButton.disabled = false;
+    return;
+  }
   const arquivo = imagemInput.files[0];
 
   if (!texto && !arquivo) {
