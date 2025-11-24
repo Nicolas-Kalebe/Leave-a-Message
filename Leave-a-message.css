@@ -6,8 +6,9 @@
   --border-color: #464646;
   --header-color: #464646;
   --enviar-color: #6ab2f5;
+  --shadow-div: black;
 
-  .seletor-icone{
+  .seletor-icone {
     filter: invert(1) brightness(500%);
   }
 }
@@ -20,6 +21,7 @@
   --border-color: #464646;
   --header-color: white;
   --enviar-color: #4d4d4d;
+    --shadow-div: rgb(134, 135, 139);
 
   .botao-like {
     filter: invert(1) hue-rotate(180deg) saturate(500);
@@ -45,8 +47,8 @@ body {
 
 .msg-luz {
   color: #212121;
-  position: absolute;
-  right: 1px;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 /* BARRAS LATERAIS E GRID SUPERIOR */
@@ -72,9 +74,13 @@ body {
   justify-content: left;
   align-items: flex-start;
   margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 45px;
   width: min(75vw, 700px);
   box-sizing: border-box;
+  box-shadow: 0px 0px 10px var(--shadow-div);
+  border-radius: 20px;
+  padding: 15px;
+
 }
 
 /* DIV da parte de baixo da header */
@@ -82,7 +88,7 @@ body {
   display: flex;
   justify-content: right;
   margin-top: 15px;
-  width: min(78vw, 700px);
+  width: min(75vw, 658px);
 }
 
 /* FUNDO e GRID (onde ficam as mensagens) */
@@ -121,14 +127,14 @@ body {
   /* evita links longos estourando layout */
 }
 
-.div-seletor-img{
+.div-seletor-img {
   margin-left: 10px;
   padding: 7px;
   border: 1px;
   border-radius: 10px;
   border-style: solid;
   border-color: var(--num-like-color);
-  
+
 }
 
 .seletor-img {
@@ -153,12 +159,12 @@ body {
 
 .imagem-do-post {
   margin: 0 auto;
-  width: 80%;         
-  max-height: 300px;  
-  height: auto;    
+  width: 80%;
+  max-height: 300px;
+  height: auto;
   display: block;
   object-fit: contain;
-  
+
 }
 
 
@@ -194,14 +200,15 @@ body {
   font-size: 16px;
 }
 
-/* IMAGENS*/ 
- .tema img{
+/* IMAGENS*/
+.tema img {
   vertical-align: middle;
 }
 
 .tema {
   height: 50px;
 }
+
 /*
 /* INPUTS */
 .nickname {
@@ -255,11 +262,15 @@ body {
 }
 
 
-@media (max-width: 1300px) {
+@media (max-width: 1366px) {
   .header {
-    scale: 0.68;
+    scale: 0.85;
     margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+  }
+
+  .linha-grid {
+    width: min(76vw, 800px);
   }
 
   .nickname {
@@ -273,16 +284,24 @@ body {
     height: 38px;
   }
 
+  .digitar-botao {
+    width: min(66vw, 610px);
+    margin-bottom: 6px;
+  }
+  .div-seletor-img {
+    scale: 0.8;
+  }
+
   .botao {
     font-size: 14px;
     padding: 8px 16px;
   }
 
   .mensagem-individual p {
-    font-size: 12px;
+    font-size: 15px;
     margin: 0;
     padding: 16px 10px;
-    width: min(54.5vw, 800px);
+    width: min(70vw, 600px) ;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
@@ -299,17 +318,8 @@ body {
   }
 
 
-  .im .mensagens-feitas {
-    display: grid;
-    grid-template-columns: 1fr;
-    border-top: 1px solid var(--border-color);
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-    width: min(60vw, 800px);
-    font-family: montserrat;
-    font-size: 24px;
-    background-color: var(--box-color);
-    box-sizing: border-box;
+  .mensagens-feitas {
+    width: min(76vw, 800px);
   }
 
   .texto {
